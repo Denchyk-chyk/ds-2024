@@ -2,4 +2,9 @@
 using System.Text;
 
 Console.OutputEncoding = Encoding.UTF8;
-while (true) Menu.Playback();
+
+while (true)
+{
+	try { Menu.Playback(); }
+	catch (Exception exception) { Console.WriteLine($"Помилка: {exception.Message}"); }
+}
