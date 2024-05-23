@@ -11,11 +11,11 @@ namespace Lab2
 		public Calculator(List<string> u, List<string> a, List<string> b)
 		{
 			U = u;
-			A = ToRaw(a);
-			B = ToRaw(b);
+			A = Torow(a);
+			B = Torow(b);
 		}
 
-		private BitArray ToRaw(List<string> set)
+		private BitArray Torow(List<string> set)
 		{
 			var output = new BitArray(U.Count);
 
@@ -25,13 +25,13 @@ namespace Lab2
 			return output;
 		}
 
-		public List<string> ToSet(BitArray raw)
+		public List<string> ToSet(BitArray row)
 		{
 			List<string> output = [];
 
-			for (int i = 0; i < raw.Count; i++)
+			for (int i = 0; i < row.Count; i++)
 			{
-				if (raw[i])
+				if (row[i])
 					output.Add(U[i]);
 			}
 

@@ -27,20 +27,20 @@ namespace Lab3
 			return calc.Solve();
 		}
 
-		internal class Calculator(BitArray raw, Inspector inspector)
+		internal class Calculator(BitArray row, Inspector inspector)
 		{
 			private int _zero, _one;
 
 			public void Process(params int[] numbers)
 			{
-				if (inspector(raw, numbers)) _one++;
+				if (inspector(row, numbers)) _one++;
 				else _zero++;
 			}
 
 			public Kind Solve() => _zero == 0 ? Kind.Orinary : _one == 0 ? Kind.Anti : Kind.None;
 		}
 
-		internal delegate bool Inspector(BitArray raw, params int[] numbers);
+		internal delegate bool Inspector(BitArray row, params int[] numbers);
 
 		public static Kind CheckTransitivity(BitArray matrix)
 		{
