@@ -2,26 +2,35 @@
 
 namespace Lab5
 {
-	internal class BinaryCounter : IEnumerable<BitArray>, IEnumerator<BitArray>
+	public class BinaryCounter : IEnumerable<bool[]>, IEnumerator<bool[]>
 	{
-		public BitArray Current { get; private set; }
+		public int Size { get; private set; }
+		public int Index { get; private set; }
+		public bool[] Current
+		{
+			get
+			{
+				bool[] array = new bool[_current.Length];
+				Array.Copy(_current, array, array.Length);
+				return array;
+			}
+		}
 		
-		private int _size;
 		private int _count;
-		private int _counter;
+		private bool[] _current;
 
 		object IEnumerator.Current => Current;
 
 		public BinaryCounter(int count)
 		{
 			_count = count;
-			_size = 0;
+			Size = 0;
 			int range = 1;
 			
 			do
 			{
 				range *= 2;
-				_size++;
+				Size++;
 			} while (range < _count);
 
 			Reset();
@@ -29,27 +38,28 @@ namespace Lab5
 
 		public void Reset()
 		{
-			_counter = -1;
-			Current = new BitArray(_size, true);
+			Index = -1;
+			_current = new bool[Size];
+			_current = _current.Select(e => true).ToArray();
 		}
 
 		public bool MoveNext()
 		{
-			_counter++;
+			Index++;
 
-			for (int i = _size - 1; i > -1; i--)
+			for (int i = Size - 1; i > -1; i--)
 			{
-				Current[i] = !Current[i];
-				if (Current[i]) break;
+				_current[i] = !_current[i];
+				if (_current[i]) break;
 			}
 
-			return _counter < _count;
+			return Index < _count;
 		}
 
 		public void Dispose() { }
 		
 		public IEnumerator GetEnumerator() => this;
 
-		IEnumerator<BitArray> IEnumerable<BitArray>.GetEnumerator() => this;
+		IEnumerator<bool[]> IEnumerable<bool[]>.GetEnumerator() => this;
 	}
 }

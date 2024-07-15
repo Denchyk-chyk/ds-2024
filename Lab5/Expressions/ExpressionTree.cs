@@ -30,12 +30,12 @@ namespace Lab5.Expressions.Types
 			var counter = new BinaryCounter(4);
             var results = new List<bool[]>();
 
-			foreach (BitArray values in counter)
+			foreach (bool[] values in counter)
             {
                 results.Add(new bool[_list.Count]);
 				for (int x = 0; x < _list.Count; x++)
                 {
-                    _list[x].Calculate(values);
+                    _list[x].Calculate(new BitArray(values));
                     results[^1][x] = _list[x].Value;
 				}
 			}
@@ -48,7 +48,7 @@ namespace Lab5.Expressions.Types
                 columns[^1][0] = _list[x].ToString();
 
                 counter.Reset();
-				foreach (BitArray values in counter)
+				foreach (bool[] values in counter)
                 {
                     columns[^1][y] = (results[y - 1][x] ? "1" : "0").PadLeft(columns[^1][0].Length / 2 + 1).PadRight(columns[^1][0].Length);
                     y++;
